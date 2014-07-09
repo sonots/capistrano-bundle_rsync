@@ -74,5 +74,10 @@ module Capistrano::BundleRsync
     def self.max_parallels(hosts)
       fetch(:bundle_rsync_max_parallels) || hosts.size
     end
+
+    def self.rsync_options
+      bwlimit = fetch(:bundle_rsync_rsync_bwlimit) ? " --bwlimit #{fetch(:bundle_rsync_rsync_bwlimit)}" : ""
+      fetch(:bundle_rsync_rsync_options) || "-az --delete#{bwlimit}"
+    end
   end
 end

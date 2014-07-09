@@ -33,18 +33,19 @@ BUNDLE_BIN: #{shared_path.join('bin')}
         bundle_config_path = "#{config.local_base_path}/bundle_config"
         File.open(bundle_config_path, "w") {|file| file.print(lines) }
 
+        rsync_options = config.rsync_options
         Parallel.each(hosts, in_processes: config.max_parallels(hosts)) do |host|
           ssh = config.build_ssh_command(host)
           if config_files = config.config_files
             config_files.each do |config_file|
               basename = File.basename(config_file)
-              execute :rsync, "-az --delete --rsh='#{ssh}' #{config_file} #{host}:#{release_path}/config/#{basename}"
+              execute :rsync, "#{rsync_options} --rsh='#{ssh}' #{config_file} #{host}:#{release_path}/config/#{basename}"
             end
           end
 
-          execute :rsync, "-az --delete --rsh='#{ssh}' #{config.local_bundle_path}/ #{host}:#{shared_path}/bundle/"
-          execute :rsync, "-az --delete --rsh='#{ssh}' #{config.local_bin_path}/ #{host}:#{shared_path}/bin/"
-          execute :rsync, "-az --delete --rsh='#{ssh}' #{bundle_config_path} #{host}:#{release_path}/.bundle/config"
+          execute :rsync, "#{rsync_options} --rsh='#{ssh}' #{config.local_bundle_path}/ #{host}:#{shared_path}/bundle/"
+          execute :rsync, "#{rsync_options} --rsh='#{ssh}' #{config.local_bin_path}/ #{host}:#{shared_path}/bin/"
+          execute :rsync, "#{rsync_options} --rsh='#{ssh}' #{bundle_config_path} #{host}:#{release_path}/.bundle/config"
         end
 
         FileUtils.rm_rf(config.local_release_path)
@@ -91,9 +92,10 @@ BUNDLE_BIN: #{shared_path.join('bin')}
         execute :git, :archive, fetch(:branch), '| tar -x -C', "#{config.local_release_path}"
       end
 
+      rsync_options = config.rsync_options
       Parallel.each(hosts, in_processes: config.max_parallels(hosts)) do |host|
         ssh = config.build_ssh_command(host)
-        execute :rsync, "-az --delete --rsh='#{ssh}' #{config.local_release_path}/ #{host}:#{release_path}/"
+        execute :rsync, "#{rsync_options} --rsh='#{ssh}' #{config.local_release_path}/ #{host}:#{release_path}/"
       end
     end
   end
