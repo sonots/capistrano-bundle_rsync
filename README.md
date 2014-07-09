@@ -56,6 +56,8 @@ bundle_rsync_local_bin_path | `"#{base_path}/bin"` | Path where to bundle instal
 bundle_rsync_config_files | `nil` | Additional files to rsync. Specified files are copied into `config` directory.
 bundle_rsync_ssh_options | `ssh_options` | Configuration of ssh for rsync. Default uses the value of `ssh_options`
 bundle_rsync_max_parallels | number of hosts | Number of concurrency. The default is the number of hosts to deploy.
+bundle_rsync_rsync_bwlimit | nil | Configuration of rsync --bwlimit (KBPS) option. Not Avabile if `bundle_rsync_rsync_options` is specified.
+bundle_rsync_rsync_options | `-az --delete` | Configuration of rsync options.
 
 ## Installation
 
@@ -134,6 +136,7 @@ set :linked_dirs, %w(bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public
 set :keep_releases, 5
 set :scm, :bundle_rsync # Need this
 set :bundle_rsync_max_parallels, ENV['PARA']
+set :bundle_rsync_rsync_bwlimit, ENV['BWLIMIT'] # like 20000
 set :bundle_rsync_config_files, ['~/config/database.yml']
 
 set :application, 'sample'
@@ -159,7 +162,6 @@ A. capistrano-bundle\_rsync does `bundle install` at the deploy machine, not on 
 
 ## ToDo
 
-1. Support rsync_options
 2. Support other SCMs than `git`. 
 
 ## ChangeLog
