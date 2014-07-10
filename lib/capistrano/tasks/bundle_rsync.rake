@@ -10,7 +10,7 @@ namespace :bundle_rsync do
 
   namespace :bundler do
     task :install do
-      hosts = roles(:all)
+      hosts = release_roles(:all)
       on hosts, in: :groups, limit: config.max_parallels(hosts) do
         within release_path do
           execute :mkdir, '-p', '.bundle'
@@ -84,7 +84,7 @@ BUNDLE_BIN: #{shared_path.join('bin')}
 
   desc 'Copy repo to releases'
   task create_release: :'bundle_rsync:update' do
-    hosts = roles(:all)
+    hosts = release_roles(:all)
     run_locally do
       execute "mkdir -p #{config.local_release_path}"
 
