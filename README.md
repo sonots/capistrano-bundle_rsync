@@ -52,7 +52,7 @@ keep\_releases | 5 | The number of releases to keep.
 bundle_rsync_local_base_path   | `$(pwd)/.local_repo` | The working base directory
 bundle_rsync_local_mirror_path | `#{base_path}/mirror"` | Path where to mirror your repository
 bundle_rsync_local_releases_path | `"#{base_path}/releases"` | Path of the directory to checkout your repository
-bundle_rsync_local_release_path | `"#{release_dir}/#{Time.now.to_i}"` | Path to checkout your repository (releases_path + release_name)
+bundle_rsync_local_release_path | `"#{release_dir}/#{time}"` | Path to checkout your repository (releases_path + release_name)
 bundle_rsync_local_bundle_path | `"#{base_path}/bundle"` | Path where to bundle install gems.
 bundle_rsync_local_bin_path | `"#{base_path}/bin"` | Path where to bundle install bin scripts.
 bundle_rsync_config_files | `nil` | Additional files to rsync. Specified files are copied into `config` directory.

@@ -134,6 +134,8 @@ namespace :load do
     set :bundle_rsync_config_files, nil
     set :bundle_rsync_ssh_options, nil # Default to be ssh_options. Note: :password is not supported.
     set :bundle_rsync_max_parallels, nil
+    set :bundle_rsync_rsync_bwlimit, nil
+    set :bundle_rsync_rsync_options, nil
   end
 end
 end

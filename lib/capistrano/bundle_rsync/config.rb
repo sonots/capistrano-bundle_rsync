@@ -13,7 +13,7 @@ module Capistrano::BundleRsync
     end
 
     def self.local_release_path
-      @local_release_path ||= fetch(:bundle_rsync_local_release_path) || "#{local_releases_path}/#{Time.now.to_i}"
+      @local_release_path ||= fetch(:bundle_rsync_local_release_path) || "#{local_releases_path}/#{Time.new.strftime('%Y%m%d%H%M%S')}"
     end
 
     def self.local_bundle_path
