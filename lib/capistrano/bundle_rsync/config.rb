@@ -4,8 +4,8 @@ module Capistrano::BundleRsync
       @local_base_path ||= fetch(:bundle_rsync_local_base_path) || "#{Dir::pwd}/.local_repo"
     end
 
-    def self.local_repo_path
-      @local_repo_path ||= fetch(:bundle_rsync_local_repo_path) || "#{local_base_path}/repo"
+    def self.local_mirror_path
+      @local_mirror_path ||= fetch(:bundle_rsync_local_mirror_path) || "#{local_base_path}/mirror"
     end
 
     def self.local_releases_path

@@ -12,7 +12,7 @@ Also saves you from having to install Git and Build Tools on your production mac
 
 Capistrano::BundleRsync works as followings:
 
-1. Do `git clone --mirror URL .local_repo/repo` on a deploy (local) machine.
+1. Do `git clone --mirror URL .local_repo/mirror` on a deploy (local) machine.
 2. Extract a branch by `git archive {branch}` to `.local_repo/release_{time}`
 4. Deploy the `release` directory to remote machines by `rsync`. 
 3. Do `bundle --without development,test --path .local_repo/bundle` on a deploy (local) machine.
@@ -50,7 +50,7 @@ branch        | `master` | The Git branch to checkout.
 ssh_options   | `{}`  | Configuration of ssh :user and :keys.
 keep\_releases | 5 | The number of releases to keep.
 bundle_rsync_local_base_path   | `$(pwd)/.local_repo` | The working base directory
-bundle_rsync_local_repo_path | `#{base_path}/repo"` | Path where to mirror your repository
+bundle_rsync_local_mirror_path | `#{base_path}/mirror"` | Path where to mirror your repository
 bundle_rsync_local_releases_path | `"#{base_path}/releases"` | Path of the directory to checkout your repository
 bundle_rsync_local_release_path | `"#{release_dir}/#{Time.now.to_i}"` | Path to checkout your repository (releases_path + release_name)
 bundle_rsync_local_bundle_path | `"#{base_path}/bundle"` | Path where to bundle install gems.

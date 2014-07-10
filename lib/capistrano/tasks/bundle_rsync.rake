@@ -77,10 +77,10 @@ BUNDLE_BIN: #{shared_path.join('bin')}
   desc 'Clone the repo to the cache'
   task :clone do
     run_locally do
-      if File.exist?("#{config.local_repo_path}/HEAD")
-        info t(:mirror_exists, at: config.local_repo_path)
+      if File.exist?("#{config.local_mirror_path}/HEAD")
+        info t(:mirror_exists, at: config.local_mirror_path)
       else
-        execute :git, :clone, '--mirror', repo_url, config.local_repo_path
+        execute :git, :clone, '--mirror', repo_url, config.local_mirror_path
       end
     end
   end
@@ -88,7 +88,7 @@ BUNDLE_BIN: #{shared_path.join('bin')}
   desc 'Update the repo mirror to reflect the origin state'
   task update: :'bundle_rsync:clone' do
     run_locally do
-      within config.local_repo_path do
+      within config.local_mirror_path do
         execute :git, :remote, :update
       end
     end
@@ -100,7 +100,7 @@ BUNDLE_BIN: #{shared_path.join('bin')}
     run_locally do
       execute "mkdir -p #{config.local_release_path}"
 
-      within config.local_repo_path do
+      within config.local_mirror_path do
         execute :git, :archive, fetch(:branch), '| tar -x -C', "#{config.local_release_path}"
       end
 
@@ -115,7 +115,7 @@ BUNDLE_BIN: #{shared_path.join('bin')}
   desc 'Determine the revision that will be deployed'
   task :set_current_revision do
     run_locally do
-      within config.local_repo_path do
+      within config.local_mirror_path do
         set :current_revision, capture(:git, "rev-parse --short #{fetch(:branch)}")
       end
     end
@@ -127,7 +127,7 @@ end
 namespace :load do
   task :defaults do
     set :bundle_rsync_local_base_path, nil
-    set :bundle_rsync_local_repo_path, nil
+    set :bundle_rsync_local_mirror_path, nil
     set :bundle_rsync_local_release_path, nil
     set :bundle_rsync_local_bundle_path, nil
     set :bundle_rsync_local_bin_path, nil
