@@ -49,7 +49,7 @@ repo_url      | `.` | The path or URL to a Git repository to clone from.
 branch        | `master` | The Git branch to checkout.  
 ssh_options   | `{}`  | Configuration of ssh :user and :keys.
 keep\_releases | 5 | The number of releases to keep.
-bundle_rsync_local_base_path   | `$(pwd)/.local_repo` | The working base directory
+bundle_rsync_local_base_path   | `$(pwd)/.local_repo` | The base directory to clone repository
 bundle_rsync_local_mirror_path | `#{base_path}/mirror"` | Path where to mirror your repository
 bundle_rsync_local_releases_path | `"#{base_path}/releases"` | Path of the directory to checkout your repository
 bundle_rsync_local_release_path | `"#{release_dir}/#{time}"` | Path to checkout your repository (releases_path + release_name)
