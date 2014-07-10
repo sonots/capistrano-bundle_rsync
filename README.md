@@ -48,13 +48,16 @@ Name          | Default | Description
 repo_url      | `.` | The path or URL to a Git repository to clone from.  
 branch        | `master` | The Git branch to checkout.  
 ssh_options   | `{}`  | Configuration of ssh :user and :keys.
+keep\_releases | 5 | The number of releases to keep.
 bundle_rsync_local_base_path   | `$(pwd)/.local_repo` | The working base directory
 bundle_rsync_local_repo_path | `#{base_path}/repo"` | Path where to mirror your repository
-bundle_rsync_local_release_path | `"#{base_path}/relase_#{Time.now.to_i}"` | Path where to checkout your repository
+bundle_rsync_local_releases_path | `"#{base_path}/releases"` | Path of the directory to checkout your repository
+bundle_rsync_local_release_path | `"#{release_dir}/#{Time.now.to_i}"` | Path to checkout your repository (releases_path + release_name)
 bundle_rsync_local_bundle_path | `"#{base_path}/bundle"` | Path where to bundle install gems.
 bundle_rsync_local_bin_path | `"#{base_path}/bin"` | Path where to bundle install bin scripts.
 bundle_rsync_config_files | `nil` | Additional files to rsync. Specified files are copied into `config` directory.
 bundle_rsync_ssh_options | `ssh_options` | Configuration of ssh for rsync. Default uses the value of `ssh_options`
+bundle_rsync_keep_releases | `keep_releases` | The number of releases to keep on .local_repo
 bundle_rsync_max_parallels | number of hosts | Number of concurrency. The default is the number of hosts to deploy.
 bundle_rsync_rsync_bwlimit | nil | Configuration of rsync --bwlimit (KBPS) option. Not Avabile if `bundle_rsync_rsync_options` is specified.
 bundle_rsync_rsync_options | `-az --delete` | Configuration of rsync options.
