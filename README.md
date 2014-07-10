@@ -49,6 +49,7 @@ repo_url      | `.` | The path or URL to a Git repository to clone from.
 branch        | `master` | The Git branch to checkout.  
 ssh_options   | `{}`  | Configuration of ssh :user and :keys.
 keep\_releases | 5 | The number of releases to keep.
+scm | nil | Must be `bundle_rsync` to use capistrano-bundle_rsync.
 bundle_rsync_local_base_path   | `$(pwd)/.local_repo` | The base directory to clone repository
 bundle_rsync_local_mirror_path | `#{base_path}/mirror"` | Path where to mirror your repository
 bundle_rsync_local_releases_path | `"#{base_path}/releases"` | Path of the directory to checkout your repository
@@ -61,6 +62,7 @@ bundle_rsync_keep_releases | `keep_releases` | The number of releases to keep on
 bundle_rsync_max_parallels | number of hosts | Number of concurrency. The default is the number of hosts to deploy.
 bundle_rsync_rsync_bwlimit | nil | Configuration of rsync --bwlimit (KBPS) option. Not Avabile if `bundle_rsync_rsync_options` is specified.
 bundle_rsync_rsync_options | `-az --delete` | Configuration of rsync options.
+bundle_rsync_scm | 'git' or 'local_git' | SCM Strategy inside `bundle_rsync`. `git` uses git. `local_git` also uses git, but it enables to rsync the git repository located on local path directly without git clone. `repo_url` must be the local directory path to use `local_git`.
 
 ## Installation
 
