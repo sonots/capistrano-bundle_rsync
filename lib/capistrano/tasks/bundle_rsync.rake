@@ -48,7 +48,19 @@ BUNDLE_BIN: #{shared_path.join('bin')}
           execute :rsync, "#{rsync_options} --rsh='#{ssh}' #{bundle_config_path} #{host}:#{release_path}/.bundle/config"
         end
 
-        FileUtils.rm_rf(config.local_release_path)
+        # Do not remove if :bundle_rsync_local_release_path is directly specified.
+        unless fetch(:bundle_rsync_local_release_path)
+          releases = capture(:ls, '-x', config.local_releases_path).split
+          if releases.count >= config.keep_releases
+            directories = (releases - releases.last(config.keep_releases))
+            if directories.any?
+              directories_str = directories.map do |release|
+                releases_path.join(release)
+              end.join(" ")
+              execute :rm, '-rf', directories_str
+            end
+          end
+        end
       end
     end
   end

@@ -8,8 +8,12 @@ module Capistrano::BundleRsync
       @local_repo_path ||= fetch(:bundle_rsync_local_repo_path) || "#{local_base_path}/repo"
     end
 
+    def self.local_releases_path
+      @local_releases_path ||= fetch(:bundle_rsync_local_releases_path) || "#{local_base_path}/releases"
+    end
+
     def self.local_release_path
-      @local_release_path ||= fetch(:bundle_rsync_local_release_path) || "#{local_base_path}/release_#{Time.now.to_i}"
+      @local_release_path ||= fetch(:bundle_rsync_local_release_path) || "#{local_releases_path}/#{Time.now.to_i}"
     end
 
     def self.local_bundle_path
@@ -67,6 +71,10 @@ module Capistrano::BundleRsync
         port_opt = " -p #{port}"
       end
       "ssh#{user_opt}#{key_opt}#{port_opt}"
+    end
+
+    def self.keep_releases
+      @keep_releases = fetch(:bundle_rsync_keep_releases) || fetch(:keep_releases)
     end
 
     # Fetch the :bundle_rsync_max_parallels,
