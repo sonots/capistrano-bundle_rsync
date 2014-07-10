@@ -87,5 +87,9 @@ module Capistrano::BundleRsync
       bwlimit = fetch(:bundle_rsync_rsync_bwlimit) ? " --bwlimit #{fetch(:bundle_rsync_rsync_bwlimit)}" : ""
       fetch(:bundle_rsync_rsync_options) || "-az --delete#{bwlimit}"
     end
+
+    def self.direct_repo_path
+      @direct_repo_path ||= fetch(:bundle_rsync_direct_repo_path)
+    end
   end
 end
