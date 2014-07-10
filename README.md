@@ -162,6 +162,7 @@ A. capistrano-bundle\_rsync does `bundle install` at the deploy machine, not on 
 
 ## ToDo
 
+1. Use keep\_releases to keep releases on .local_repo
 2. Support other SCMs than `git`. 
 
 ## ChangeLog
