@@ -3,7 +3,6 @@ Capistrano::BundleRsync::TASK_LOADED = true
 require 'fileutils'
 require 'parallel'
 require 'capistrano/bundle_rsync/bundler'
-require 'capistrano/bundle_rsync/git'
 
 namespace :bundle_rsync do
   def bundler
@@ -11,7 +10,15 @@ namespace :bundle_rsync do
   end
 
   def scm
-    @scm ||= Capistrano::BundleRsync::Git.new(self)
+    @scm ||=
+      if fetch(:bundle_rsync_scm) == 'local_git'
+        require 'capistrano/bundle_rsync/local_git'
+        set :bundle_rsync_local_release_path, repo_url
+        Capistrano::BundleRsync::LocalGit.new(self)
+      else
+        require 'capistrano/bundle_rsync/git'
+        Capistrano::BundleRsync::Git.new(self)
+      end
   end
 
   namespace :bundler do
@@ -59,20 +66,5 @@ namespace :bundle_rsync do
   end
 
   before 'deploy:updated', 'bundle_rsync:bundler:install'
-end
-
-namespace :load do
-  task :defaults do
-    set :bundle_rsync_local_base_path, nil
-    set :bundle_rsync_local_mirror_path, nil
-    set :bundle_rsync_local_release_path, nil
-    set :bundle_rsync_local_bundle_path, nil
-    set :bundle_rsync_local_bin_path, nil
-    set :bundle_rsync_config_files, nil
-    set :bundle_rsync_ssh_options, nil # Default to be ssh_options. Note: :password is not supported.
-    set :bundle_rsync_max_parallels, nil
-    set :bundle_rsync_rsync_bwlimit, nil
-    set :bundle_rsync_rsync_options, nil
-  end
 end
 end
