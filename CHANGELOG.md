@@ -1,3 +1,9 @@
+# 0.2.1 (2014/07/11)
+
+Fixes:
+
+* Stop to rsync binstubs not to override bin of rails 4
+
 # 0.2.0 (2014/07/11)
 
 Enhancements:
