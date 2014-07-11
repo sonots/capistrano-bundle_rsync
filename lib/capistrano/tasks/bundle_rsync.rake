@@ -11,7 +11,7 @@ namespace :bundle_rsync do
 
   def scm
     @scm ||=
-      if fetch(:bundle_rsync_scm) == 'local_git'
+      if fetch(:bundle_rsync_scm).to_s == 'local_git'
         require 'capistrano/bundle_rsync/local_git'
         set :bundle_rsync_local_release_path, repo_url
         Capistrano::BundleRsync::LocalGit.new(self)
