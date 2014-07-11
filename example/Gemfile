@@ -1,0 +1,7 @@
+source "http://rubygems.org"
+
+gem 'capistrano'
+gem 'capistrano-rbenv'
+gem 'capistrano-bundle_rsync', path: '../'
+gem 'pry'
+gem 'pry-nav'
