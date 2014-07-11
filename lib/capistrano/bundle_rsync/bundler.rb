@@ -13,7 +13,7 @@ class Capistrano::BundleRsync::Bundler < Capistrano::BundleRsync::Base
   def install
     hosts = release_roles(:all)
     Bundler.with_clean_env do
-      execute :bundle, "--gemfile #{config.local_release_path}/Gemfile --deployment --quiet --path #{config.local_bundle_path} --without development test --binstubs=#{config.local_bin_path}"
+      execute :bundle, "--gemfile #{config.local_release_path}/Gemfile --deployment --quiet --path #{config.local_bundle_path} --without development test"
     end
 
     lines = <<-EOS
@@ -22,8 +22,9 @@ BUNDLE_FROZEN: '1'
 BUNDLE_PATH: #{shared_path.join('bundle')}
 BUNDLE_WITHOUT: development:test
 BUNDLE_DISABLE_SHARED_GEMS: '1'
-BUNDLE_BIN: #{shared_path.join('bin')}
+BUNDLE_BIN: #{release_path.join('bin')}
     EOS
+    # BUNDLE_BIN requires rbenv-binstubs plugin to make it effectively work
     bundle_config_path = "#{config.local_base_path}/bundle_config"
     File.open(bundle_config_path, "w") {|file| file.print(lines) }
 
@@ -38,7 +39,6 @@ BUNDLE_BIN: #{shared_path.join('bin')}
       end
 
       execute :rsync, "#{rsync_options} --rsh='#{ssh}' #{config.local_bundle_path}/ #{host}:#{shared_path}/bundle/"
-      execute :rsync, "#{rsync_options} --rsh='#{ssh}' #{config.local_bin_path}/ #{host}:#{shared_path}/bin/"
       execute :rsync, "#{rsync_options} --rsh='#{ssh}' #{bundle_config_path} #{host}:#{release_path}/.bundle/config"
     end
 
