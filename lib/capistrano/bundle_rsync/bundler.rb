@@ -1,19 +1,18 @@
 require 'capistrano/bundle_rsync/base'
 
 class Capistrano::BundleRsync::Bundler < Capistrano::BundleRsync::Base
-  def prepare
+  def install
+    Bundler.with_clean_env do
+      execute :bundle, "--gemfile #{config.local_release_path}/Gemfile --deployment --quiet --path #{config.local_bundle_path} --without development test"
+    end
+  end
+
+  def rsync
     hosts = release_roles(:all)
     on hosts, in: :groups, limit: config.max_parallels(hosts) do
       within release_path do
         execute :mkdir, '-p', '.bundle'
       end
-    end
-  end
-
-  def install
-    hosts = release_roles(:all)
-    Bundler.with_clean_env do
-      execute :bundle, "--gemfile #{config.local_release_path}/Gemfile --deployment --quiet --path #{config.local_bundle_path} --without development test"
     end
 
     lines = <<-EOS

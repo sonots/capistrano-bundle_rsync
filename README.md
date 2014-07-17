@@ -14,8 +14,8 @@ Capistrano::BundleRsync works as followings:
 
 1. Do `git clone --mirror URL .local_repo/mirror` on a deploy (local) machine.
 2. Extract a branch by `git archive {branch}` to `.local_repo/release_{time}`
-4. Deploy the `release` directory to remote machines by `rsync`. 
 3. Do `bundle --without development,test --path .local_repo/bundle` on a deploy (local) machine.
+4. Deploy the `release` directory to remote machines by `rsync`. 
 5. Deploy the `bundle` directory to remote machines by `rsync`.
 
 ## Prerequisites

@@ -23,9 +23,14 @@ namespace :bundle_rsync do
 
   namespace :bundler do
     task :install do
-      bundler.prepare
       run_locally do
         bundler.install
+      end
+    end
+
+    task :rsync do
+      run_locally do
+        bundler.rsync
       end
     end
   end
@@ -58,6 +63,14 @@ namespace :bundle_rsync do
     end
   end
 
+  # additional extra tasks of bundle_rsync scm
+  desc 'Rsync releases'
+  task :rsync_release do
+    run_locally do
+      scm.rsync_release
+    end
+  end
+
   desc 'Determine the revision that will be deployed'
   task :set_current_revision do
     run_locally do
@@ -65,6 +78,8 @@ namespace :bundle_rsync do
     end
   end
 
-  before 'deploy:updated', 'bundle_rsync:bundler:install'
+  after 'bundle_rsync:create_release', 'bundle_rsync:bundler:install'
+  after 'bundle_rsync:bundler:install', 'bundle_rsync:rsync_release'
+  after 'bundle_rsync:rsync_release', 'bundle_rsync:bundler:rsync'
 end
 end

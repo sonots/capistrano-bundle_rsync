@@ -14,6 +14,9 @@ class Capistrano::BundleRsync::LocalGit < Capistrano::BundleRsync::SCM
   end
 
   def create_release
+  end
+
+  def rsync_release
     hosts = release_roles(:all)
     rsync_options = config.rsync_options
     Parallel.each(hosts, in_processes: config.max_parallels(hosts)) do |host|
