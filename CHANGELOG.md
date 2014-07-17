@@ -1,3 +1,9 @@
+# 0.2.2 (2014/07/17)
+
+Changes:
+
+* Split rsync tasks and reorder tasks to be better
+
 # 0.2.1 (2014/07/11)
 
 Fixes:
