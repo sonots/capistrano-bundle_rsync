@@ -63,6 +63,19 @@ bundle_rsync_max_parallels | number of hosts | Number of concurrency. The defaul
 bundle_rsync_rsync_bwlimit | nil | Configuration of rsync --bwlimit (KBPS) option. Not Avabile if `bundle_rsync_rsync_options` is specified.
 bundle_rsync_rsync_options | `-az --delete` | Configuration of rsync options.
 
+## Task Orders
+
+```
+** Execute bundle_rsync:check
+** Execute bundle_rsync:clone
+** Execute bundle_rsync:update
+** Execute bundle_rsync:create_release
+** Execute bundle_rsync:bundler:install
+** Execute bundle_rsync:rsync_release
+** Execute bundle_rsync:bundler:rsync
+** Execute bundle_rsync:set_current_revision
+```
+
 ## Installation
 
 Add this line to your application's Gemfile:
