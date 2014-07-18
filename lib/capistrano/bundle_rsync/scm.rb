@@ -68,6 +68,20 @@ class Capistrano::BundleRsync::SCM < Capistrano::BundleRsync::Base
 
   # @abstract
   #
+  # Rsync the contents of the release path
+  #
+  # This is an additional task endpoint provided by capistrano-bundle_rsync
+  #
+  # @return void
+  #
+  def rsync_release
+    raise NotImplementedError.new(
+      "Your SCM strategy module should provide a #rsync_release method"
+    )
+  end
+
+  # @abstract
+  #
   # Identify the SHA of the commit that will be deployed.  This will most likely involve SshKit's capture method.
   #
   # @return void
