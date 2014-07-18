@@ -62,7 +62,7 @@ bundle_rsync_keep_releases | `keep_releases` | The number of releases to keep on
 bundle_rsync_max_parallels | number of hosts | Number of concurrency. The default is the number of hosts to deploy.
 bundle_rsync_rsync_bwlimit | nil | Configuration of rsync --bwlimit (KBPS) option. Not Avabile if `bundle_rsync_rsync_options` is specified.
 bundle_rsync_rsync_options | `-az --delete` | Configuration of rsync options.
-bundle_rsync_skip_bundle | nil | (Secret option) Do not `bundle` and rsync bundle.
+bundle_rsync_skip_bundle | false | (Secret option) Do not `bundle` and rsync bundle.
 
 ## Task Orders
 
