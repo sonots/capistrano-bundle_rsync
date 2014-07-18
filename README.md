@@ -13,8 +13,8 @@ Also saves you from having to install Git and Build Tools on your production mac
 Capistrano::BundleRsync works as followings:
 
 1. Do `git clone --mirror URL .local_repo/mirror` on a deploy (local) machine.
-2. Extract a branch by `git archive {branch}` to `.local_repo/release_{time}`
-3. Do `bundle --without development,test --path .local_repo/bundle` on a deploy (local) machine.
+2. Extract a branch by `git archive {branch}` to `.local_repo/releases/{datetime}`
+3. Do `bundle --without development test --path .local_repo/bundle` on a deploy (local) machine.
 4. Deploy the `release` directory to remote machines by `rsync`. 
 5. Deploy the `bundle` directory to remote machines by `rsync`.
 
@@ -54,7 +54,7 @@ bundle_rsync_scm | `git` | SCM Strategy inside `bundle_rsync`. `git` uses git. `
 bundle_rsync_local_base_path   | `$(pwd)/.local_repo` | The base directory to clone repository
 bundle_rsync_local_mirror_path | `#{base_path}/mirror"` | Path where to mirror your repository
 bundle_rsync_local_releases_path | `"#{base_path}/releases"` | Path of the directory to checkout your repository
-bundle_rsync_local_release_path | `"#{release_dir}/#{time}"` | Path to checkout your repository (releases_path + release_name)
+bundle_rsync_local_release_path | `"#{releases_path}/#{datetime}"` | Path to checkout your repository (releases_path + release_name)
 bundle_rsync_local_bundle_path | `"#{base_path}/bundle"` | Path where to bundle install gems.
 bundle_rsync_config_files | `nil` | Additional files to rsync. Specified files are copied into `config` directory.
 bundle_rsync_ssh_options | `ssh_options` | Configuration of ssh for rsync. Default uses the value of `ssh_options`
@@ -92,7 +92,7 @@ Or install it yourself as:
 
 ## Usage
 
-Add followings to your Gemfile:
+Add followings to your Gemfile (capistrano-rvm should work, but not verified):
 
 ```ruby
 gem 'capistrano'
@@ -169,6 +169,25 @@ Deploy by following command:
 
 ```bash
 $ bundle exec cap localhost deploy
+```
+
+## Run a custom task before rsyncing
+
+For example, if you want to precompile rails assets before rsyncing,
+you may add your own task before `bundle_rsync:rsync_release`.
+
+```
+task :precompile do
+  run_locally do
+    Bundler.with_clean_env do
+      within BundleRsync::Config.release_path do
+        execute :bundle, 'exec rake assets:precompile'
+      end
+    end
+  end
+end
+
+before "bundle_rsync:rsync_release", "precompile"
 ```
 
 ## FAQ
