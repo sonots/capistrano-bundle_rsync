@@ -1,3 +1,9 @@
+# 0.2.3 (2014/07/18)
+
+Enhancements:
+
+* Add `bundle_rsync_skip_bundle` option
+
 # 0.2.2 (2014/07/17)
 
 Changes:
