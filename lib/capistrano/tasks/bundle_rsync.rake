@@ -5,6 +5,10 @@ require 'parallel'
 require 'capistrano/bundle_rsync/bundler'
 
 namespace :bundle_rsync do
+  def config
+    Capistrano::BundleRsync::Config
+  end
+
   def bundler
     @bundler ||= Capistrano::BundleRsync::Bundler.new(self)
   end
@@ -24,13 +28,21 @@ namespace :bundle_rsync do
   namespace :bundler do
     task :install do
       run_locally do
-        bundler.install
+        if config.skip_bundle
+          info "Skip bundle"
+        else
+          bundler.install
+        end
       end
     end
 
     task :rsync do
       run_locally do
-        bundler.rsync
+        if config.skip_bundle
+          info "Skip bundle rsync"
+        else
+          bundler.rsync
+        end
       end
     end
   end
