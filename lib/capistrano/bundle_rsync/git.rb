@@ -31,7 +31,7 @@ class Capistrano::BundleRsync::Git < Capistrano::BundleRsync::SCM
   def rsync_release
     hosts = release_roles(:all)
     rsync_options = config.rsync_options
-    Parallel.each(hosts, in_processes: config.max_parallels(hosts)) do |host|
+    Parallel.each(hosts, in_threads: config.max_parallels(hosts)) do |host|
       ssh = config.build_ssh_command(host)
       execute :rsync, "#{rsync_options} --rsh='#{ssh}' #{config.local_release_path}/ #{host}:#{release_path}/"
     end

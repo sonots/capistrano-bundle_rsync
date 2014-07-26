@@ -28,7 +28,7 @@ BUNDLE_BIN: #{release_path.join('bin')}
     File.open(bundle_config_path, "w") {|file| file.print(lines) }
 
     rsync_options = config.rsync_options
-    Parallel.each(hosts, in_processes: config.max_parallels(hosts)) do |host|
+    Parallel.each(hosts, in_threads: config.max_parallels(hosts)) do |host|
       ssh = config.build_ssh_command(host)
       if config_files = config.config_files
         config_files.each do |config_file|
