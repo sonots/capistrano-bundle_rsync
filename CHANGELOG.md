@@ -1,3 +1,9 @@
+# 0.2.4 (2014/07/28)
+
+Changes:
+
+* Change process parallel to thread parallel to save memory usage as capistrano/sshkit does
+
 # 0.2.3 (2014/07/18)
 
 Enhancements:
