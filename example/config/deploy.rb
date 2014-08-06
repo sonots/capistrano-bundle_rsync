@@ -5,7 +5,7 @@ set :user, 'game'
 set :ssh_options, user: ENV['USER'], keys: [File.expand_path('~/.ssh/id_rsa')]
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
 
-set :linked_dirs, %w(log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system tmp/run)
+set :linked_dirs, %w(log tmp/pids vendor/bundle)
 set :keep_releases, 5
 set :rbenv_type, :user
 set :rbenv_ruby, '2.1.2'
@@ -15,7 +15,7 @@ set :scm, :bundle_rsync
 set :bundle_rsync_max_parallels, ENV['PARA']
 set :bundle_rsync_rsync_bwlimit, ENV['BWLIMIT'] # like 20000
 set :bundle_rsync_shared_dirs, File.expand_path('..', __dir__) # rsync example to shared/example
-set :bundle_rsync_shared_rsync_options, "-az --delete --exclude=Capfile"
+set :bundle_rsync_rsync_options, "-az --delete --exclude=.git"
 
 namespace :deploy do
   desc 'Restart web application'

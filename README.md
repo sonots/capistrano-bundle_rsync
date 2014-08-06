@@ -63,7 +63,6 @@ bundle_rsync_rsync_bwlimit | nil | Configuration of rsync --bwlimit (KBPS) optio
 bundle_rsync_rsync_options | `-az --delete` | Configuration of rsync options.
 bundle_rsync_config_files | `nil` | Additional files to rsync. Specified files are copied into `config` directory.
 bundle_rsync_shared_dirs | `nil` | Additional directories to rsync. Specified directories are copied into `shared` directory.
-bundle_rsync_shared_rsync_options | `-az` | Configuration of rsync options for `config_files` and `shared_dirs`
 bundle_rsync_skip_bundle | false | (Secret option) Do not `bundle` and rsync bundle.
 
 ## Task Orders

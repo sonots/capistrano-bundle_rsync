@@ -1,3 +1,9 @@
+# 0.3.1 (2014/08/05)
+
+Changes:
+
+* Remove `bundle_rsync_shared_rsync_options` to reduce complexity
+
 # 0.3.0 (2014/08/05)
 
 Enhancements:

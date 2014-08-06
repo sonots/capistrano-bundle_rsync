@@ -89,7 +89,7 @@ class Capistrano::BundleRsync::SCM < Capistrano::BundleRsync::Base
   # @return void
   def rsync_shared
     hosts = release_roles(:all)
-    rsync_options = config.shared_rsync_options
+    rsync_options = config.rsync_options
 
     if config_files = config.config_files
       Parallel.each(hosts, in_threads: config.max_parallels(hosts)) do |host|

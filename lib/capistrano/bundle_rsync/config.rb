@@ -89,11 +89,6 @@ module Capistrano::BundleRsync
       fetch(:bundle_rsync_rsync_options) || "-az --delete#{bwlimit}"
     end
 
-    def self.shared_rsync_options
-      bwlimit = fetch(:bundle_rsync_rsync_bwlimit) ? " --bwlimit #{fetch(:bundle_rsync_rsync_bwlimit)}" : ""
-      fetch(:bundle_rsync_shared_rsync_options) || "-az#{bwlimit}"
-    end
-
     def self.skip_bundle
       fetch(:bundle_rsync_skip_bundle)
     end
