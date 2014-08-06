@@ -1,3 +1,9 @@
+# 0.2.5 (2014/08/05)
+
+Enhancements:
+
+* Add `bundle_rsync_shared_dirs` and `bundle_rsync_shared_rsync_options` options
+
 # 0.2.4 (2014/07/28)
 
 Changes:
