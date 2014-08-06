@@ -25,6 +25,11 @@ module Capistrano::BundleRsync
       config_files.is_a?(Array) ? config_files : [config_files]
     end
 
+    def self.shared_dirs
+      return nil unless shared_dirs = fetch(:bundle_rsync_shared_dirs)
+      shared_dirs.is_a?(Array) ? shared_dirs : [shared_dirs]
+    end
+
     # Build ssh command options for rsync
     #
     # First, search available user and keys configurations for each role:
@@ -82,6 +87,11 @@ module Capistrano::BundleRsync
     def self.rsync_options
       bwlimit = fetch(:bundle_rsync_rsync_bwlimit) ? " --bwlimit #{fetch(:bundle_rsync_rsync_bwlimit)}" : ""
       fetch(:bundle_rsync_rsync_options) || "-az --delete#{bwlimit}"
+    end
+
+    def self.shared_rsync_options
+      bwlimit = fetch(:bundle_rsync_rsync_bwlimit) ? " --bwlimit #{fetch(:bundle_rsync_rsync_bwlimit)}" : ""
+      fetch(:bundle_rsync_shared_sync_options) || "-az#{bwlimit}"
     end
 
     def self.skip_bundle

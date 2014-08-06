@@ -83,6 +83,14 @@ namespace :bundle_rsync do
     end
   end
 
+  # additional extra tasks of bundle_rsync scm
+  desc 'Rsync shared'
+  task :rsync_shared do
+    run_locally do
+      scm.rsync_shared
+    end
+  end
+
   desc 'Determine the revision that will be deployed'
   task :set_current_revision do
     run_locally do
@@ -92,6 +100,7 @@ namespace :bundle_rsync do
 
   after 'bundle_rsync:create_release', 'bundle_rsync:bundler:install'
   after 'bundle_rsync:bundler:install', 'bundle_rsync:rsync_release'
-  after 'bundle_rsync:rsync_release', 'bundle_rsync:bundler:rsync'
+  after 'bundle_rsync:rsync_release', 'bundle_rsync:rsync_shared'
+  after 'bundle_rsync:rsync_shared', 'bundle_rsync:bundler:rsync'
 end
 end
