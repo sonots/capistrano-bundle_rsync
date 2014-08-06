@@ -56,12 +56,14 @@ bundle_rsync_local_mirror_path | `#{base_path}/mirror"` | Path where to mirror y
 bundle_rsync_local_releases_path | `"#{base_path}/releases"` | Path of the directory to checkout your repository
 bundle_rsync_local_release_path | `"#{releases_path}/#{datetime}"` | Path to checkout your repository (releases_path + release_name)
 bundle_rsync_local_bundle_path | `"#{base_path}/bundle"` | Path where to bundle install gems.
-bundle_rsync_config_files | `nil` | Additional files to rsync. Specified files are copied into `config` directory.
 bundle_rsync_ssh_options | `ssh_options` | Configuration of ssh for rsync. Default uses the value of `ssh_options`
 bundle_rsync_keep_releases | `keep_releases` | The number of releases to keep on .local_repo
 bundle_rsync_max_parallels | number of hosts | Number of concurrency. The default is the number of hosts to deploy.
 bundle_rsync_rsync_bwlimit | nil | Configuration of rsync --bwlimit (KBPS) option. Not Avabile if `bundle_rsync_rsync_options` is specified.
 bundle_rsync_rsync_options | `-az --delete` | Configuration of rsync options.
+bundle_rsync_config_files | `nil` | Additional files to rsync. Specified files are copied into `config` directory.
+bundle_rsync_shared_dirs | `nil` | Additional directories to rsync. Specified directories are copied into `shared` directory.
+bundle_rsync_shared_rsync_options | `-az` | Configuration of rsync options for `config_files` and `shared_dirs`
 bundle_rsync_skip_bundle | false | (Secret option) Do not `bundle` and rsync bundle.
 
 ## Task Orders
@@ -73,6 +75,7 @@ bundle_rsync_skip_bundle | false | (Secret option) Do not `bundle` and rsync bun
 ** Execute bundle_rsync:create_release
 ** Execute bundle_rsync:bundler:install
 ** Execute bundle_rsync:rsync_release
+** Execute bundle_rsync:rsync_shared
 ** Execute bundle_rsync:bundler:rsync
 ** Execute bundle_rsync:set_current_revision
 ```
