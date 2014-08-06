@@ -14,6 +14,8 @@ set :deploy_to, "#{ENV['HOME']}/sample"
 set :scm, :bundle_rsync
 set :bundle_rsync_max_parallels, ENV['PARA']
 set :bundle_rsync_rsync_bwlimit, ENV['BWLIMIT'] # like 20000
+set :bundle_rsync_shared_dirs, File.expand_path('..', __dir__) # rsync example to shared/example
+set :bundle_rsync_shared_rsync_options, "-az --delete --exclude=Capfile"
 
 namespace :deploy do
   desc 'Restart web application'

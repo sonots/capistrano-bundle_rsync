@@ -30,13 +30,6 @@ BUNDLE_BIN: #{release_path.join('bin')}
     rsync_options = config.rsync_options
     Parallel.each(hosts, in_threads: config.max_parallels(hosts)) do |host|
       ssh = config.build_ssh_command(host)
-      if config_files = config.config_files
-        config_files.each do |config_file|
-          basename = File.basename(config_file)
-          execute :rsync, "#{rsync_options} --rsh='#{ssh}' #{config_file} #{host}:#{release_path}/config/#{basename}"
-        end
-      end
-
       execute :rsync, "#{rsync_options} --rsh='#{ssh}' #{config.local_bundle_path}/ #{host}:#{shared_path}/bundle/"
       execute :rsync, "#{rsync_options} --rsh='#{ssh}' #{bundle_config_path} #{host}:#{release_path}/.bundle/config"
     end
