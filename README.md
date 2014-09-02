@@ -179,11 +179,12 @@ $ bundle exec cap localhost deploy
 For example, if you want to precompile rails assets before rsyncing,
 you may add your own task before `bundle_rsync:rsync_release`.
 
-```
+```ruby
 task :precompile do
   run_locally do
     Bundler.with_clean_env do
       within BundleRsync::Config.release_path do
+        execute :bundle, 'install' # install development gems
         execute :bundle, 'exec rake assets:precompile'
       end
     end
