@@ -68,6 +68,7 @@ bundle_rsync_skip_bundle | false | (Secret option) Do not `bundle` and rsync bun
 ## Task Orders
 
 ```
+$ cap stage deploy --trace | grep Execute
 ** Execute bundle_rsync:check
 ** Execute bundle_rsync:clone
 ** Execute bundle_rsync:update
