@@ -182,12 +182,18 @@ you may add your own task before `bundle_rsync:rsync_release`.
 
 ```ruby
 task :precompile do
+  config = Capistrano::BundleRsync::Config
   run_locally do
     Bundler.with_clean_env do
-      within BundleRsync::Config.release_path do
+      within config.release_path do
         execute :bundle, 'install' # install development gems
         execute :bundle, 'exec rake assets:precompile'
       end
+    end
+    
+    hosts = release_roles(:all)
+    Parallel.each(hosts, in_threads: config.max_parallels(hosts)) do |host|
+      execute "rsync -az -e ssh #{config.release_path}/public/ #{host}:#{fetch(:deploy_to)}/shared/public"
     end
   end
 end
