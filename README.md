@@ -153,7 +153,7 @@ Edit `config/deploy/localhost.rb` as followings for example:
 ```ruby
 set :branch, ENV['BRANCH'] || 'master'
 set :rbenv_type, :user
-set :linked_dirs, %w(log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system tmp/run)
+set :linked_dirs, %w(log tmp/pids tmp/cache tmp/sockets vendor/bundle tmp/run)
 set :keep_releases, 5
 set :scm, :bundle_rsync # Need this
 set :bundle_rsync_max_parallels, ENV['PARA']
