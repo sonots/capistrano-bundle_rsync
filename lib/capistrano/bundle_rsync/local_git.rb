@@ -14,6 +14,11 @@ class Capistrano::BundleRsync::LocalGit < Capistrano::BundleRsync::SCM
   end
 
   def create_release
+    execute "mkdir -p #{config.local_release_path}"
+    local_base_dir = File.basename(config.local_base_path) # .local_repo
+    rsync_options = %Q[-a --exclude=".git" --exclude="#{local_base_dir}/"]
+
+    execute :rsync, "#{rsync_options} #{repo_url}/ #{config.local_release_path}"
   end
 
   def rsync_release
