@@ -1,3 +1,9 @@
+# 0.3.2 (2014/12/11)
+
+Changes:
+
+* Remove `.bundle/config` to make it possible to install development gems before rake assets:precompile
+
 # 0.3.1 (2014/08/05)
 
 Changes:
