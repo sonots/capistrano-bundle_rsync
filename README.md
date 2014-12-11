@@ -201,6 +201,35 @@ end
 before "bundle_rsync:rsync_release", "precompile"
 ```
 
+## local_git scm
+
+`bundle_rsync` supports `local_git` SCM strategy in addition to `git`.
+
+`local_git` strategy enables to rsync the git repository located on a local path without git clone. You may find as this is useful when you need to replace files locally without commit beforehand (for example, for password embedding). 
+
+Following is an example of `config/deploy/xxxx.rb`:
+
+Please note that `repo_url` should be a different path with the path running cap. 
+This strategy probably fits with a rare situation, you should use the default `git` strategy usually. 
+
+```ruby
+set :branch, ENV['BRANCH'] || 'master'
+set :rbenv_type, :user
+set :linked_dirs, %w(log tmp/pids tmp/cache tmp/sockets vendor/bundle tmp/run)
+set :keep_releases, 5
+set :scm, :bundle_rsync
+set :bundle_rsync_scm, 'local_git' # Set `local_git`
+
+set :application, 'sample'
+set :repo_url, "/home/sonots/sample" # Need to git clone your repository to this path beforehand.
+                                     # This path should be different with the path running cap.
+set :deploy_to, "/home/sonots/sample"
+set :rbenv_ruby, "2.1.2" # Required on both deploy machine and remote machines
+set :ssh_options, user: 'sonots', keys: File.expand_path('~/.ssh/id_rsa')
+
+role :app, ['127.0.0.1']
+```
+
 ## FAQ
 
 Q. What is difference with [capistrano-rsync](https://github.com/moll/capistrano-rsync)?
