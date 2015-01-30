@@ -1,3 +1,9 @@
+# 0.3.3 (2015/01/30)
+
+Fixes:
+
+* Fix to cleanup .local_repo/releases with keep_releases
+
 # 0.3.2 (2014/12/11)
 
 Changes:
