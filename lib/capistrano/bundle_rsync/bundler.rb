@@ -42,7 +42,7 @@ BUNDLE_BIN: #{release_path.join('bin')}
         directories = (releases - releases.last(config.keep_releases))
         if directories.any?
           directories_str = directories.map do |release|
-            releases_path.join(release)
+            File.join(config.local_releases_path, release)
           end.join(" ")
           execute :rm, '-rf', directories_str
         end
