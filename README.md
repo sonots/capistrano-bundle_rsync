@@ -54,7 +54,7 @@ bundle_rsync_scm | `git` | SCM Strategy inside `bundle_rsync`. `git` uses git. `
 bundle_rsync_local_base_path   | `$(pwd)/.local_repo` | The base directory to clone repository
 bundle_rsync_local_mirror_path | `#{base_path}/mirror"` | Path where to mirror your repository
 bundle_rsync_local_releases_path | `"#{base_path}/releases"` | Path of the directory to checkout your repository
-bundle_rsync_local_release_path | `"#{releases_path}/#{datetime}"` | Path to checkout your repository (releases_path + release_name). If you specify this, `keep_releases` for local releases path is disabled because `datetime` directories are no longer created. 
+bundle_rsync_local_release_path | `"#{releases_path}/#{datetime}"` | Path to checkout your repository (releases_path + release_name). If you specify this, `keep_releases` for local releases path is disabled because `datetime` directories are no longer created. This parameter is set as `repo_url` in the case of `local_git` as default. 
 bundle_rsync_local_bundle_path | `"#{base_path}/bundle"` | Path where to bundle install gems.
 bundle_rsync_ssh_options | `ssh_options` | Configuration of ssh for rsync. Default uses the value of `ssh_options`
 bundle_rsync_keep_releases | `keep_releases` | The number of releases to keep on .local_repo
@@ -221,10 +221,10 @@ set :scm, :bundle_rsync
 set :bundle_rsync_scm, 'local_git' # Set `local_git`
 
 set :application, 'sample'
-set :repo_url, "/home/sonots/sample" # Need to git clone your repository to this path beforehand.
-                                     # This path should be different with the path running cap.
-set :deploy_to, "/home/sonots/sample"
-set :rbenv_ruby, "2.1.2" # Required on both deploy machine and remote machines
+set :repo_url, "/path/to/app/local" # Need to git clone your repository to this path beforehand.
+                                    # This path should be different with the path running cap.
+set :deploy_to, "/path/to/app/production"
+set :rbenv_ruby, "2.1.2" # Required the same ruby on both deploy machine and remote machines
 set :ssh_options, user: 'sonots', keys: File.expand_path('~/.ssh/id_rsa')
 
 role :app, ['127.0.0.1']
