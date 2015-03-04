@@ -1,3 +1,9 @@
+# 0.4.0 (2015/03/04)
+
+Enhancements:
+
+* Support `repo_tree` to deploy subtree of a repository (thanks @lecoueyl)
+
 # 0.3.3 (2015/01/30)
 
 Fixes:
