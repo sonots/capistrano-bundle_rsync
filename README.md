@@ -185,7 +185,7 @@ task :precompile do
   config = Capistrano::BundleRsync::Config
   run_locally do
     Bundler.with_clean_env do
-      within config.release_path do
+      within config.local_release_path do
         execute :bundle, 'install' # install development gems
         execute :bundle, 'exec rake assets:precompile'
       end
