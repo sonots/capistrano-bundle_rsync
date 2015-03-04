@@ -1,11 +1,11 @@
-set :user, 'game'
+set :user, `whoami`.chomp
 set :ssh_options, user: ENV['USER'], keys: [File.expand_path('~/.ssh/id_rsa')]
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
 
 set :linked_dirs, %w(log tmp/pids vendor/bundle)
 set :keep_releases, 5
 set :rbenv_type, :user
-set :rbenv_ruby, '2.1.5'
+set :rbenv_ruby, RUBY_VERSION # '2.1.5'
 set :deploy_to, "#{ENV['HOME']}/sample"
 
 set :scm, :bundle_rsync
