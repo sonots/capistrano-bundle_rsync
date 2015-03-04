@@ -193,7 +193,7 @@ task :precompile do
     
     hosts = release_roles(:all)
     Parallel.each(hosts, in_threads: config.max_parallels(hosts)) do |host|
-      execute "rsync -az -e ssh #{config.release_path}/public/ #{host}:#{fetch(:deploy_to)}/shared/public"
+      execute "rsync -az -e ssh #{config.local_release_path}/public/ #{host}:#{fetch(:deploy_to)}/shared/public"
     end
   end
 end
