@@ -60,7 +60,7 @@ module Capistrano::BundleRsync
     # NOTE: :password is not supported.
     def self.build_ssh_command(host)
       user_opt, key_opt, port_opt = "", "", ""
-      ssh_options = fetch(:bundle_rsync_ssh_options) || fetch(:ssh_options)
+      ssh_options = fetch(:bundle_rsync_ssh_options) || fetch(:ssh_options) || {}
       if user = host.user || ssh_options[:user]
         user_opt = " -l #{user}"
       end
