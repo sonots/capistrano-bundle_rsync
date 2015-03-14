@@ -1,4 +1,5 @@
 require 'capistrano/bundle_rsync/scm'
+require 'capistrano/configuration/filter'
 
 class Capistrano::BundleRsync::LocalGit < Capistrano::BundleRsync::SCM
   def check
@@ -17,7 +18,7 @@ class Capistrano::BundleRsync::LocalGit < Capistrano::BundleRsync::SCM
   end
 
   def rsync_release
-    hosts = release_roles(:all)
+    hosts = ::Capistrano::Configuration.env.filter(release_roles(:all))
     rsync_options = config.rsync_options
     Parallel.each(hosts, in_threads: config.max_parallels(hosts)) do |host|
       ssh = config.build_ssh_command(host)

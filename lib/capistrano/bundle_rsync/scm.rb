@@ -1,4 +1,5 @@
 require 'capistrano/bundle_rsync/base'
+require 'capistrano/configuration/filter'
 
 # Base class for SCM strategy providers.
 #
@@ -88,7 +89,7 @@ class Capistrano::BundleRsync::SCM < Capistrano::BundleRsync::Base
   #
   # @return void
   def rsync_shared
-    hosts = release_roles(:all)
+    hosts = ::Capistrano::Configuration.env.filter(release_roles(:all))
     rsync_options = config.rsync_options
 
     if config_files = config.config_files
