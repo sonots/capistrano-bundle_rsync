@@ -1,3 +1,9 @@
+# 0.4.2 (2015/03/16)
+
+Fixes:
+
+* Fix bugs incorporated with v0.4.1
+
 # 0.4.1 (2015/03/16)
 
 Fixes:
