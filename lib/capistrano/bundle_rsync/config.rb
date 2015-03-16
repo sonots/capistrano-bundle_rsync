@@ -81,7 +81,7 @@ module Capistrano::BundleRsync
     # Fetch the :bundle_rsync_max_parallels,
     # where the default is the number of hosts
     def self.max_parallels(hosts)
-      fetch(:bundle_rsync_max_parallels) || hosts.size
+      fetch(:bundle_rsync_max_parallels, hosts.size).to_i
     end
 
     def self.rsync_options
