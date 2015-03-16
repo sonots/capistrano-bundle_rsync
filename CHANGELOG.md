@@ -1,3 +1,11 @@
+# 0.4.1 (2015/03/16)
+
+Fixes:
+
+* Fix --hosts and --roles options to work (thanks to @niku4i)
+* Fix to config.bundle_rsync_max_parallels to be integer always (thanks to @niku4i)
+* Fix for the case `bundle_rsync_ssh_options` and `ssh_options` are not configured (thanks to @niku4i)
+
 # 0.4.0 (2015/03/04)
 
 Enhancements:
