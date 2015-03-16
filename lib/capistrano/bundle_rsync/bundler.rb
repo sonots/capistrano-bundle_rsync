@@ -1,4 +1,5 @@
 require 'capistrano/bundle_rsync/base'
+require 'capistrano/configuration/filter'
 
 class Capistrano::BundleRsync::Bundler < Capistrano::BundleRsync::Base
   def install
@@ -28,6 +29,7 @@ BUNDLE_BIN: #{release_path.join('bin')}
     bundle_config_path = "#{config.local_base_path}/bundle_config"
     File.open(bundle_config_path, "w") {|file| file.print(lines) }
 
+    hosts = ::Capistrano::Configuration.env.filter(hosts)
     rsync_options = config.rsync_options
     Parallel.each(hosts, in_threads: config.max_parallels(hosts)) do |host|
       ssh = config.build_ssh_command(host)
