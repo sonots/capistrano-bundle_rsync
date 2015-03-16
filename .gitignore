@@ -16,4 +16,5 @@ test/tmp
 test/version_tmp
 tmp
 example/.local_repo
+example/.capistrano
 .ruby-version
