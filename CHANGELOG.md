@@ -1,3 +1,9 @@
+# 0.4.4 (2015/07/09)
+
+Enhancements:
+
+* Avoid to remove existing .bundle/config using BUNDLE_APP_CONFIG (thanks to @hkobayash)
+
 # 0.4.3 (2015/03/16)
 
 Fixes:
@@ -6,7 +12,7 @@ Fixes:
 
 # 0.4.2 (2015/03/16)
 
-Fixes:
+Fixes7
 
 * Fix bugs incorporated with v0.4.1
 
