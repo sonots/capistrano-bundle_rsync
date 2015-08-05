@@ -92,5 +92,22 @@ module Capistrano::BundleRsync
     def self.skip_bundle
       fetch(:bundle_rsync_skip_bundle)
     end
+
+    def self.bundle_install_standalone
+      fetch(:bundle_rsync_bundle_install_standalone)
+    end
+
+    def self.bundle_install_standalone_option
+      case value = self.bundle_install_standalone
+      when true
+        "--standalone"
+      when Array
+        "--standalone #{value.join(' ')}"
+      when String
+        "--standalone #{value}"
+      else
+        nil
+      end
+    end
   end
 end
