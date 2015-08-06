@@ -5,7 +5,11 @@ class Capistrano::BundleRsync::Bundler < Capistrano::BundleRsync::Base
   def install
     Bundler.with_clean_env do
       with bundle_app_config: config.local_base_path do
-        execute :bundle, "--gemfile #{config.local_release_path}/Gemfile --deployment --quiet --path #{config.local_bundle_path} --without development test"
+        opts = "--gemfile #{config.local_release_path}/Gemfile --deployment --quiet --path #{config.local_bundle_path} --without development test"
+        if standalone = config.bundle_install_standalone_option
+          opts += " #{standalone}"
+        end
+        execute :bundle, opts
         execute :rm, "#{config.local_base_path}/config"
       end
     end
