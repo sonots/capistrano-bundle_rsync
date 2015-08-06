@@ -1,3 +1,9 @@
+# 0.4.5 (2015/08/06)
+
+Enhancements:
+
+* Support bundle install with --standalone option (thanks to @niku4i)
+
 # 0.4.4 (2015/07/09)
 
 Enhancements:
