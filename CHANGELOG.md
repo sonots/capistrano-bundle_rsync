@@ -1,3 +1,9 @@
+# 0.4.6 (2016/02/03)
+
+Enhancements:
+
+* Support repo_tree with local_git (thanks to @mizzy)
+
 # 0.4.5 (2015/08/06)
 
 Enhancements:
