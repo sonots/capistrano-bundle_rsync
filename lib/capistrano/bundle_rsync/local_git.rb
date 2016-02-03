@@ -22,7 +22,11 @@ class Capistrano::BundleRsync::LocalGit < Capistrano::BundleRsync::SCM
     rsync_options = config.rsync_options
     Parallel.each(hosts, in_threads: config.max_parallels(hosts)) do |host|
       ssh = config.build_ssh_command(host)
-      execute :rsync, "#{rsync_options} --rsh='#{ssh}' #{repo_url}/ #{host}:#{release_path}/"
+      if tree = fetch(:repo_tree)
+        execute :rsync, "#{rsync_options} --rsh='#{ssh}' #{repo_url}/#{tree}/ #{host}:#{release_path}/"
+      else
+        execute :rsync, "#{rsync_options} --rsh='#{ssh}' #{repo_url}/ #{host}:#{release_path}/"
+      end
     end
   end
 
