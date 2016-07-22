@@ -17,6 +17,9 @@ class Capistrano::BundleRsync::LocalGit < Capistrano::BundleRsync::SCM
   def create_release
   end
 
+  def clean_release
+  end
+
   def rsync_release
     hosts = ::Capistrano::Configuration.env.filter(release_roles(:all))
     rsync_options = config.rsync_options

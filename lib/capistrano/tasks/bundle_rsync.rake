@@ -17,7 +17,6 @@ namespace :bundle_rsync do
     @bundle_rsync_scm ||=
       if fetch(:bundle_rsync_scm).to_s == 'local_git'
         require 'capistrano/bundle_rsync/local_git'
-        set :bundle_rsync_local_release_path, repo_url
         Capistrano::BundleRsync::LocalGit.new(self)
       else
         require 'capistrano/bundle_rsync/git'
@@ -43,12 +42,6 @@ namespace :bundle_rsync do
         else
           bundle_rsync_bundler.rsync
         end
-      end
-    end
-
-    task :clean do
-      run_locally do
-        bundle_rsync_bundler.clean
       end
     end
   end
@@ -97,6 +90,14 @@ namespace :bundle_rsync do
     end
   end
 
+  # additional extra tasks of bundle_rsync scm
+  desc 'Clean releases'
+  task :clean_release do
+    run_locally do
+      bundle_rsync_scm.clean_release
+    end
+  end
+
   desc 'Determine the revision that will be deployed'
   task :set_current_revision do
     run_locally do
@@ -108,6 +109,6 @@ namespace :bundle_rsync do
   after 'bundle_rsync:bundler:install', 'bundle_rsync:rsync_release'
   after 'bundle_rsync:rsync_release', 'bundle_rsync:rsync_shared'
   after 'bundle_rsync:rsync_shared', 'bundle_rsync:bundler:rsync'
-  after 'bundle_rsync:bundler:rsync', 'bundle_rsync:bundler:clean'
+  after 'bundle_rsync:bundler:rsync', 'bundle_rsync:clean_release'
 end
 end

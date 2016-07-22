@@ -35,6 +35,22 @@ class Capistrano::BundleRsync::Git < Capistrano::BundleRsync::SCM
     end
   end
 
+  def clean_release
+    # Do not remove if :bundle_rsync_local_release_path is directly specified
+    # because releases/#{datetime} directories are no longer created.
+    return if fetch(:bundle_rsync_local_release_path)
+    releases = capture(:ls, '-x', config.local_releases_path).split
+    if releases.count >= config.keep_releases
+      directories = (releases - releases.last(config.keep_releases))
+      if directories.any?
+        directories_str = directories.map do |release|
+          File.join(config.local_releases_path, release)
+        end.join(" ")
+        execute :rm, '-rf', directories_str
+      end
+    end
+  end
+
   def rsync_release
     hosts = ::Capistrano::Configuration.env.filter(release_roles(:all))
     rsync_options = config.rsync_options
