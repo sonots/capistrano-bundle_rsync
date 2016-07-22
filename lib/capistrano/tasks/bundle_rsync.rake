@@ -45,6 +45,12 @@ namespace :bundle_rsync do
         end
       end
     end
+
+    task :clean do
+      run_locally do
+        bundle_rsync_bundler.clean
+      end
+    end
   end
 
   desc 'Check that the repository is reachable'
@@ -102,5 +108,6 @@ namespace :bundle_rsync do
   after 'bundle_rsync:bundler:install', 'bundle_rsync:rsync_release'
   after 'bundle_rsync:rsync_release', 'bundle_rsync:rsync_shared'
   after 'bundle_rsync:rsync_shared', 'bundle_rsync:bundler:rsync'
+  after 'bundle_rsync:bundler:rsync', 'bundle_rsync:bundler:clean'
 end
 end
