@@ -69,6 +69,18 @@ class Capistrano::BundleRsync::SCM < Capistrano::BundleRsync::Base
 
   # @abstract
   #
+  # Clean the contents of the cache-repository onto the release path
+  #
+  # @return void
+  #
+  def clean_release
+    raise NotImplementedError.new(
+      "Your SCM strategy module should provide a #clean_release method"
+    )
+  end
+
+  # @abstract
+  #
   # Rsync the contents of the release path
   #
   # This is an additional task endpoint provided by capistrano-bundle_rsync

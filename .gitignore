@@ -17,4 +17,8 @@ test/version_tmp
 tmp
 example/.local_repo
 example/.capistrano
+example/.vagrant
+example/log
+example/vendor
+example/try_rails4
 .ruby-version

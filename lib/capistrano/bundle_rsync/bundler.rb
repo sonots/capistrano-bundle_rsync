@@ -42,21 +42,5 @@ BUNDLE_BIN: #{release_path.join('bin')}
       execute :rsync, "#{rsync_options} --rsh='#{ssh}' #{config.local_bundle_path}/ #{host}:#{shared_path}/bundle/"
       execute :rsync, "#{rsync_options} --rsh='#{ssh}' #{bundle_config_path} #{host}:#{release_path}/.bundle/config"
     end
-
-    # Do not remove if :bundle_rsync_local_release_path is directly specified
-    # because releases/#{datetime} directories are not created in such case. 
-    # Note that :bundle_rsync_local_release_path is automatically set when `local_git` scm is used. 
-    unless fetch(:bundle_rsync_local_release_path)
-      releases = capture(:ls, '-x', config.local_releases_path).split
-      if releases.count >= config.keep_releases
-        directories = (releases - releases.last(config.keep_releases))
-        if directories.any?
-          directories_str = directories.map do |release|
-            File.join(config.local_releases_path, release)
-          end.join(" ")
-          execute :rm, '-rf', directories_str
-        end
-      end
-    end
   end
 end
