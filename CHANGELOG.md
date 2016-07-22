@@ -1,3 +1,9 @@
+# 0.4.7 (2016/07/22)
+
+Fixes:
+
+* Fix cleaning .local_repo/releases was not working if skip_bundle is specified (thanks to @kozyty)
+
 # 0.4.6 (2016/02/03)
 
 Enhancements:
