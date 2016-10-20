@@ -20,6 +20,10 @@ module Capistrano::BundleRsync
       @local_bundle_path ||= fetch(:bundle_rsync_local_bundle_path) || "#{local_base_path}/bundle"
     end
 
+    def self.bundle_gemfile
+      @bundle_gemfile ||= fetch(:bundle_rsync_bundle_gemfile) || "Gemfile"
+    end
+
     def self.config_files
       return nil unless config_files = fetch(:bundle_rsync_config_files)
       config_files.is_a?(Array) ? config_files : [config_files]

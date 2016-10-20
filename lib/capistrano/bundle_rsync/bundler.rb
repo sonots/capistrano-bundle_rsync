@@ -5,7 +5,7 @@ class Capistrano::BundleRsync::Bundler < Capistrano::BundleRsync::Base
   def install
     Bundler.with_clean_env do
       with bundle_app_config: config.local_base_path do
-        opts = "--gemfile #{config.local_release_path}/Gemfile --deployment --quiet --path #{config.local_bundle_path} --without development test"
+        opts = "--gemfile #{config.local_release_path}/#{config.bundle_gemfile} --deployment --quiet --path #{config.local_bundle_path} --without development test"
         if standalone = config.bundle_install_standalone_option
           opts += " #{standalone}"
         end
@@ -30,6 +30,7 @@ BUNDLE_PATH: #{shared_path.join('bundle')}
 BUNDLE_WITHOUT: development:test
 BUNDLE_DISABLE_SHARED_GEMS: '1'
 BUNDLE_BIN: #{release_path.join('bin')}
+BUNDLE_GEMFILE: #{release_path.join(config.bundle_gemfile)}
     EOS
     # BUNDLE_BIN requires rbenv-binstubs plugin to make it effectively work
     bundle_config_path = "#{config.local_base_path}/bundle_config"
