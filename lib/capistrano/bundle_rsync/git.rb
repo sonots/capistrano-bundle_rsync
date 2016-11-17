@@ -3,7 +3,7 @@ require 'capistrano/configuration/filter'
 
 class Capistrano::BundleRsync::Git < Capistrano::BundleRsync::SCM
   def check
-    exit 1 unless execute("git ls-remote #{repo_url}")
+    exit 1 unless execute("git ls-remote #{repo_url} HEAD")
     execute("mkdir -p #{config.local_base_path}")
   end
 
