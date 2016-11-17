@@ -4,7 +4,7 @@ require 'capistrano/configuration/filter'
 class Capistrano::BundleRsync::LocalGit < Capistrano::BundleRsync::SCM
   def check
     raise ArgumentError.new('`repo_url` must be local path to use `local_git` scm') unless local_path?(repo_url)
-    exit 1 unless execute("git ls-remote #{repo_url}")
+    exit 1 unless execute("git ls-remote #{repo_url} HEAD")
     execute("mkdir -p #{config.local_base_path}")
   end
 
