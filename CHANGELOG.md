@@ -1,3 +1,9 @@
+# 0.4.8 (2016/11/18)
+
+Enhancements:
+
+* Suppress ls-remote log by filtering remote refs with HEAD (thanks to aeroastro)
+
 # 0.4.7 (2016/07/22)
 
 Fixes:
