@@ -17,7 +17,7 @@ class Capistrano::BundleRsync::Git < Capistrano::BundleRsync::SCM
 
   def update
     within config.local_mirror_path do
-      execute :git, :remote, :update
+      execute :git, :remote, :update, '--prune'
     end
   end
 
