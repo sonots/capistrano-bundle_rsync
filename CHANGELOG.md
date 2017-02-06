@@ -1,3 +1,9 @@
+# 0.4.9 (2017/02/26)
+
+Fixes:
+
+* Fix `local_git` was not working because of a change in 0.4.7 (thanks to hkobayash)
+
 # 0.4.8 (2016/11/18)
 
 Enhancements:

@@ -4,8 +4,8 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = "capistrano-bundle_rsync"
-  spec.version       = "0.4.8"
-  spec.authors       = ["sonots", "tohae"]
+  spec.version       = "0.4.9"
+  spec.authors       = ["Naotoshi Seo", "tohae"]
   spec.email         = ["sonots@gmail.com", "tohaechan@gmail.com"]
   spec.description   = %q{Deploy an application and bundled gems via rsync}
   spec.summary       = %q{Deploy an application and bundled gems via rsync.}
