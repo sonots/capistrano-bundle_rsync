@@ -1,3 +1,9 @@
+# 0.5.0 (2017/04/21)
+
+Enhancements:
+
+* Support capistrano-3.7 (thanks to troter)
+
 # 0.4.9 (2017/02/26)
 
 Fixes:
