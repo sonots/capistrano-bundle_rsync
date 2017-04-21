@@ -8,7 +8,10 @@ set :rbenv_type, :user
 set :rbenv_ruby, RUBY_VERSION # '2.1.5'
 set :deploy_to, "#{ENV['HOME']}/sample"
 
-set :scm, :bundle_rsync
+if Gem::Version.new(Capistrano::VERSION) < Gem::Version.new('3.7.0')
+  set :scm, :bundle_rsync
+end
+
 set :bundle_rsync_max_parallels, ENV['PARA']
 set :bundle_rsync_rsync_bwlimit, ENV['BWLIMIT'] # like 20000
 set :bundle_rsync_shared_dirs, File.expand_path('..', __dir__) # rsync example to shared/example

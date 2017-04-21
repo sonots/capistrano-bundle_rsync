@@ -145,7 +145,13 @@ require 'capistrano/deploy'
 
 # Includes tasks from other gems included in your Gemfile
 require 'capistrano/rbenv'
+
+# capistrano-3.3.3 - 3.6.1
 require 'capistrano/bundle_rsync'
+
+# capistrano-3.7+
+require 'capistrano/bundle_rsync/plugin'
+install_plugin Caipstrano::BundleRsync::Plugin
 
 # Loads custom tasks from `lib/capistrano/tasks' if you have any defined.
 Dir.glob('lib/capistrano/tasks/*.rake').each { |r| import r }
@@ -158,7 +164,7 @@ set :branch, ENV['BRANCH'] || 'master'
 set :rbenv_type, :user
 set :linked_dirs, %w(log tmp/pids tmp/cache tmp/sockets vendor/bundle tmp/run)
 set :keep_releases, 5
-set :scm, :bundle_rsync # Need this
+set :scm, :bundle_rsync # Need this when run with capistrano-3.3.3 - 3.6.1
 set :bundle_rsync_max_parallels, ENV['PARA']
 set :bundle_rsync_rsync_bwlimit, ENV['BWLIMIT'] # like 20000
 set :bundle_rsync_config_files, ['~/config/database.yml']
