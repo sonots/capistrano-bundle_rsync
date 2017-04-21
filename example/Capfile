@@ -6,7 +6,13 @@ require 'capistrano/deploy'
 
 # Includes tasks from other gems included in your Gemfile
 require 'capistrano/rbenv'
-require 'capistrano/bundle_rsync'
+
+if Gem::Version.new(Capistrano::VERSION) < Gem::Version.new('3.7.0')
+  require 'capistrano/bundle_rsync'
+else
+  require 'capistrano/bundle_rsync/plugin'
+  install_plugin Capistrano::BundleRsync::Plugin
+end
 
 # Loads custom tasks from `lib/capistrano/tasks' if you have any defined.
 Dir.glob('lib/capistrano/tasks/*.rake').each { |r| import r }
