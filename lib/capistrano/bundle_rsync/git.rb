@@ -62,7 +62,7 @@ class Capistrano::BundleRsync::Git < Capistrano::BundleRsync::SCM
 
   def set_current_revision
     within config.local_mirror_path do
-      set :current_revision, capture(:git, "rev-parse --short #{fetch(:branch)}")
+      set :current_revision, capture(:git, "rev-list --max-count=1 #{fetch(:branch)}")
     end
   end
 end
