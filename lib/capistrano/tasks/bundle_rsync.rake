@@ -19,6 +19,9 @@ namespace :bundle_rsync do
         require 'capistrano/bundle_rsync/local_git'
         set :bundle_rsync_local_release_path, repo_url
         Capistrano::BundleRsync::LocalGit.new(self)
+      elsif fetch(:bundle_rsync_scm).to_s == 'local_rsync'
+        require 'capistrano/bundle_rsync/local_git_subtree'
+        Capistrano::BundleRsync::LocalGitSubtree.new(self)
       else
         require 'capistrano/bundle_rsync/git'
         Capistrano::BundleRsync::Git.new(self)
