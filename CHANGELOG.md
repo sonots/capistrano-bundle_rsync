@@ -1,3 +1,9 @@
+# 0.5.1 (2017/05/29)
+
+Changes:
+
+* Use git rev-list instead of git rev-parse to get current_version as https://github.com/capistrano/capistrano/pull/1339 (thanks to aeroastro)
+
 # 0.5.0 (2017/04/21)
 
 Enhancements:
