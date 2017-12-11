@@ -109,5 +109,9 @@ module Capistrano::BundleRsync
         nil
       end
     end
+
+    def self.bundle_without
+      fetch(:bundle_rsync_bundle_without) || [:development, :test]
+    end
   end
 end

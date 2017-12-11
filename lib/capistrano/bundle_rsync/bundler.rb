@@ -5,7 +5,7 @@ class Capistrano::BundleRsync::Bundler < Capistrano::BundleRsync::Base
   def install
     Bundler.with_clean_env do
       with bundle_app_config: config.local_base_path do
-        opts = "--gemfile #{config.local_release_path}/Gemfile --deployment --quiet --path #{config.local_bundle_path} --without development test"
+        opts = "--gemfile #{config.local_release_path}/Gemfile --deployment --quiet --path #{config.local_bundle_path} --without #{config.bundle_without.join(' ')}"
         if standalone = config.bundle_install_standalone_option
           opts += " #{standalone}"
         end
@@ -27,7 +27,7 @@ class Capistrano::BundleRsync::Bundler < Capistrano::BundleRsync::Base
 ---
 BUNDLE_FROZEN: '1'
 BUNDLE_PATH: #{shared_path.join('bundle')}
-BUNDLE_WITHOUT: development:test
+BUNDLE_WITHOUT: #{config.bundle_without.join(':')}
 BUNDLE_DISABLE_SHARED_GEMS: '1'
 BUNDLE_BIN: #{release_path.join('bin')}
     EOS
