@@ -10,7 +10,7 @@ class Capistrano::BundleRsync::Bundler < Capistrano::BundleRsync::Base
           opts += " #{standalone}"
         end
         execute :bundle, opts
-        execute :rm, "#{config.local_base_path}/config"
+        execute :rm, '-f', "#{config.local_base_path}/config"
       end
     end
   end
