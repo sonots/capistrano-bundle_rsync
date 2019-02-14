@@ -1,3 +1,9 @@
+# 0.5.2 (2019/02/14)
+
+Fixes:
+
+* Fix num_components by tree_repo (thanks to Hiroaki Kubota)
+
 # 0.5.1 (2017/05/29)
 
 Changes:

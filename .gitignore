@@ -22,3 +22,4 @@ example/log
 example/vendor
 example/try_rails4
 .ruby-version
+vendor/
