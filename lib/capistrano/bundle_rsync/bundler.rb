@@ -6,6 +6,11 @@ class Capistrano::BundleRsync::Bundler < Capistrano::BundleRsync::Base
     Bundler.with_clean_env do
       with bundle_app_config: config.local_base_path do
         opts = "--gemfile #{config.local_release_path}/Gemfile --deployment --quiet --path #{config.local_bundle_path} --without #{config.bundle_without.join(' ')}"
+
+        if jobs = config.bundle_install_jobs
+          opts += " --jobs #{jobs}"
+        end
+
         if standalone = config.bundle_install_standalone_option
           opts += " #{standalone}"
         end
