@@ -93,6 +93,10 @@ module Capistrano::BundleRsync
       fetch(:bundle_rsync_skip_bundle)
     end
 
+    def self.bundle_install_jobs
+      fetch(:bundle_rsync_bundle_install_jobs)
+    end
+
     def self.bundle_install_standalone
       fetch(:bundle_rsync_bundle_install_standalone)
     end

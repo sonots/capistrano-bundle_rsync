@@ -65,6 +65,7 @@ bundle_rsync_rsync_options | `-az --delete` | Configuration of rsync options.
 bundle_rsync_config_files | `nil` | Additional files to rsync. Specified files are copied into `config` directory.
 bundle_rsync_shared_dirs | `nil` | Additional directories to rsync. Specified directories are copied into `shared` directory.
 bundle_rsync_skip_bundle | false | (Secret option) Do not `bundle` and rsync bundle.
+bundle_rsync_bundle_install_jobs | `nil` | Configuration of bundle install with --jobs option.
 bundle_rsync_bundle_install_standalone | `nil` | bundle install with --standalone option. Set one of `true`, `false`, an `Array` of groups, or a white space separated `String`.
 bundle_rsync_bundle_without | `[:development, :test]` | Configuration of bundle install with --without option.
 
