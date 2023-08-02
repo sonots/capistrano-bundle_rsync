@@ -5,6 +5,12 @@ class Capistrano::BundleRsync::Bundler < Capistrano::BundleRsync::Base
   def install
     Bundler.with_clean_env do
       with bundle_app_config: config.local_base_path, rbenv_version: nil, rbenv_dir: nil do
+        bundle_commands = if test :rbenv, 'version'
+          %w[rbenv exec bundle]
+        else
+          %w[bundle]
+        end
+
         opts = "--gemfile #{config.local_release_path}/Gemfile --deployment --quiet --path #{config.local_bundle_path} --without #{config.bundle_without.join(' ')}"
 
         if jobs = config.bundle_install_jobs
@@ -14,7 +20,7 @@ class Capistrano::BundleRsync::Bundler < Capistrano::BundleRsync::Base
         if standalone = config.bundle_install_standalone_option
           opts += " #{standalone}"
         end
-        execute :bundle, opts
+        execute *bundle_commands, opts
         execute :rm, "#{config.local_base_path}/config"
       end
     end
