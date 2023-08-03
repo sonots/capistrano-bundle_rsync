@@ -107,20 +107,15 @@ class Capistrano::BundleRsync::SCM < Capistrano::BundleRsync::Base
     if config_files = config.config_files
       Parallel.each(hosts, in_threads: config.max_parallels(hosts)) do |host|
         ssh = config.build_ssh_command(host)
-        config_files.each do |config_file|
-          basename = File.basename(config_file)
-          execute :rsync, "#{rsync_options} --rsh='#{ssh}' #{config_file} #{host}:#{release_path}/config/#{basename}"
-        end
+        execute :rsync, rsync_options, "--rsh='#{ssh}'", *config_files.map(&:to_s), "#{host}:#{release_path}/config/"
       end
     end
 
     if shared_dirs = config.shared_dirs
       Parallel.each(hosts, in_threads: config.max_parallels(hosts)) do |host|
         ssh = config.build_ssh_command(host)
-        shared_dirs.each do |shared_dir|
-          basename = File.basename(shared_dir)
-          execute :rsync, "#{rsync_options} --rsh='#{ssh}' #{shared_dir}/ #{host}:#{shared_path}/#{basename}/"
-        end
+        shared_dirs_without_suffix = shared_dirs.map { |dir| dir.to_s.delete_suffix('/') }
+        execute :rsync, rsync_options, "--rsh='#{ssh}'", *shared_dirs_without_suffix, "#{host}:#{shared_path}/"
       end
     end
   end
