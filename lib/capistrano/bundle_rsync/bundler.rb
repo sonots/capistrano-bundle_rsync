@@ -3,19 +3,27 @@ require 'capistrano/configuration/filter'
 
 class Capistrano::BundleRsync::Bundler < Capistrano::BundleRsync::Base
   def install
-    Bundler.with_clean_env do
-      with bundle_app_config: config.local_base_path do
-        opts = "--gemfile #{config.local_release_path}/Gemfile --deployment --quiet --path #{config.local_bundle_path} --without #{config.bundle_without.join(' ')}"
+    within config.local_release_path do
+      Bundler.with_clean_env do
+        with bundle_app_config: config.local_base_path, rbenv_version: nil, rbenv_dir: nil do
+          bundle_commands = if test :rbenv, 'version'
+            %w[rbenv exec bundle]
+          else
+            %w[bundle]
+          end
 
-        if jobs = config.bundle_install_jobs
-          opts += " --jobs #{jobs}"
-        end
+          opts = "--gemfile #{config.local_release_path}/Gemfile --deployment --quiet --path #{config.local_bundle_path} --without #{config.bundle_without.join(' ')}"
 
-        if standalone = config.bundle_install_standalone_option
-          opts += " #{standalone}"
+          if jobs = config.bundle_install_jobs
+            opts += " --jobs #{jobs}"
+          end
+
+          if standalone = config.bundle_install_standalone_option
+            opts += " #{standalone}"
+          end
+          execute *bundle_commands, opts
+          execute :rm, "#{config.local_base_path}/config"
         end
-        execute :bundle, opts
-        execute :rm, "#{config.local_base_path}/config"
       end
     end
   end
