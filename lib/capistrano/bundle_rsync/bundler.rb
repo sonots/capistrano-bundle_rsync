@@ -12,16 +12,20 @@ class Capistrano::BundleRsync::Bundler < Capistrano::BundleRsync::Base
             %w[bundle]
           end
 
-          opts = "--gemfile #{config.local_release_path}/Gemfile --deployment --quiet --path #{config.local_bundle_path} --without #{config.bundle_without.join(' ')}"
+          execute *bundle_commands, 'config', '--local', 'deployment', 'true'
+          execute *bundle_commands, 'config', '--local', 'path', config.local_bundle_path
+          execute *bundle_commands, 'config', '--local', 'without', *config.bundle_without
 
+          opts = ['--quiet']
           if jobs = config.bundle_install_jobs
-            opts += " --jobs #{jobs}"
+            opts.push('--jobs', jobs)
           end
 
           if standalone = config.bundle_install_standalone_option
-            opts += " #{standalone}"
+            opts.push(standalone)
           end
-          execute *bundle_commands, opts
+
+          execute *bundle_commands, *opts
           execute :rm, "#{config.local_base_path}/config"
         end
       end
