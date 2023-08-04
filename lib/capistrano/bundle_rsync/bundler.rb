@@ -4,7 +4,7 @@ require 'capistrano/configuration/filter'
 class Capistrano::BundleRsync::Bundler < Capistrano::BundleRsync::Base
   def install
     within config.local_release_path do
-      Bundler.with_clean_env do
+      Bundler.public_send(Bundler.respond_to?(:with_unbundled_env) ? :with_unbundled_env : :with_clean_env) do
         with bundle_app_config: config.local_base_path, rbenv_version: nil, rbenv_dir: nil do
           bundle_commands = if test :rbenv, 'version'
             %w[rbenv exec bundle]
