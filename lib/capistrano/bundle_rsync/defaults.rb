@@ -19,6 +19,7 @@ module Capistrano
         set_if_empty :bundle_rsync_ssh_options, -> { fetch(:ssh_options, {}) }
         set_if_empty :bundle_rsync_keep_releases, -> { fetch(:keep_releases) }
 
+        set_if_empty :bundle_rsync_rsync_bwlimit, nil
         set_if_empty :bundle_rsync_rsync_options, -> {
           bwlimit = fetch(:bundle_rsync_rsync_bwlimit)
 
@@ -26,7 +27,12 @@ module Capistrano
           "-az --delete#{bwlimit_option}"
         }
 
+        set_if_empty :bundle_rsync_config_files, nil
+        set_if_empty :bundle_rsync_shared_dirs, nil
+
         set_if_empty :bundle_rsync_skip_bundle, false # NOTE: This is secret option
+        set_if_empty :bundle_rsync_bundle_install_jobs, nil
+        set_if_empty :bundle_rsync_bundle_install_standalone, nil
         set_if_empty :bundle_rsync_bundle_without, [:development, :test]
       end
     end
