@@ -7,19 +7,6 @@ require 'capistrano/configuration/filter'
 class Capistrano::BundleRsync::SCM < Capistrano::BundleRsync::Base
   # @abstract
   #
-  # Your implementation should check the existence of a cache repository on
-  # the deployment target
-  #
-  # @return [Boolean]
-  #
-  def test
-    raise NotImplementedError.new(
-      "Your SCM strategy module should provide a #test method"
-    )
-  end
-
-  # @abstract
-  #
   # Your implementation should check if the specified remote-repository is
   # available.
   #
