@@ -1,23 +1,23 @@
 module Capistrano::BundleRsync
   class Config
     def self.local_base_path
-      @local_base_path ||= fetch(:bundle_rsync_local_base_path) || "#{Dir::pwd}/.local_repo"
+      @local_base_path ||= fetch(:bundle_rsync_local_base_path)
     end
 
     def self.local_mirror_path
-      @local_mirror_path ||= fetch(:bundle_rsync_local_mirror_path) || "#{local_base_path}/mirror"
+      @local_mirror_path ||= fetch(:bundle_rsync_local_mirror_path)
     end
 
     def self.local_releases_path
-      @local_releases_path ||= fetch(:bundle_rsync_local_releases_path) || "#{local_base_path}/releases"
+      @local_releases_path ||= fetch(:bundle_rsync_local_releases_path)
     end
 
     def self.local_release_path
-      @local_release_path ||= fetch(:bundle_rsync_local_release_path) || "#{local_releases_path}/#{Time.new.strftime('%Y%m%d%H%M%S')}"
+      @local_release_path ||= fetch(:bundle_rsync_local_release_path)
     end
 
     def self.local_bundle_path
-      @local_bundle_path ||= fetch(:bundle_rsync_local_bundle_path) || "#{local_base_path}/bundle"
+      @local_bundle_path ||= fetch(:bundle_rsync_local_bundle_path)
     end
 
     def self.config_files
@@ -60,7 +60,7 @@ module Capistrano::BundleRsync
     # NOTE: :password is not supported.
     def self.build_ssh_command(host)
       user_opt, key_opt, port_opt = "", "", ""
-      ssh_options = fetch(:bundle_rsync_ssh_options) || fetch(:ssh_options) || {}
+      ssh_options = fetch(:bundle_rsync_ssh_options)
       if user = host.user || ssh_options[:user]
         user_opt = " -l #{user}"
       end
@@ -75,7 +75,7 @@ module Capistrano::BundleRsync
     end
 
     def self.keep_releases
-      @keep_releases = fetch(:bundle_rsync_keep_releases) || fetch(:keep_releases)
+      @keep_releases = fetch(:bundle_rsync_keep_releases)
     end
 
     # Fetch the :bundle_rsync_max_parallels,
@@ -85,8 +85,7 @@ module Capistrano::BundleRsync
     end
 
     def self.rsync_options
-      bwlimit = fetch(:bundle_rsync_rsync_bwlimit) ? " --bwlimit #{fetch(:bundle_rsync_rsync_bwlimit)}" : ""
-      fetch(:bundle_rsync_rsync_options) || "-az --delete#{bwlimit}"
+      fetch(:bundle_rsync_rsync_options)
     end
 
     def self.skip_bundle
@@ -115,7 +114,7 @@ module Capistrano::BundleRsync
     end
 
     def self.bundle_without
-      fetch(:bundle_rsync_bundle_without) || [:development, :test]
+      fetch(:bundle_rsync_bundle_without)
     end
   end
 end
