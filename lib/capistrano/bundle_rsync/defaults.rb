@@ -19,6 +19,7 @@ module Capistrano
         set_if_empty :bundle_rsync_ssh_options, -> { fetch(:ssh_options, {}) }
         set_if_empty :bundle_rsync_keep_releases, -> { fetch(:keep_releases) }
 
+        set_if_empty :bundle_rsync_max_parallels, -> { release_roles(:all).size }
         set_if_empty :bundle_rsync_rsync_bwlimit, nil
         set_if_empty :bundle_rsync_rsync_options, -> {
           bwlimit = fetch(:bundle_rsync_rsync_bwlimit)
