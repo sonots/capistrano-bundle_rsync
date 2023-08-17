@@ -51,7 +51,7 @@ branch        | `master` | The Git branch to checkout.
 ssh_options   | `{}`  | Configuration of ssh :user and :keys.
 keep\_releases | 5 | The number of releases to keep.
 scm | nil | Must be `bundle_rsync` to use capistrano-bundle_rsync.
-bundle_rsync_scm | `git` | SCM Strategy inside `bundle_rsync`. `git` uses git. `local_git` also uses git, but it enables to rsync the git repository located on local path directly without git clone. `repo_url` must be the local directory path to use `local_git`.
+bundle_rsync_scm | `git` | SCM Strategy inside `bundle_rsync`. `git`, `local_git`, or `git_turbo` can be specified.
 bundle_rsync_local_base_path   | `$(pwd)/.local_repo` | The base directory to clone repository
 bundle_rsync_local_mirror_path | `#{base_path}/mirror"` | Path where to mirror your repository
 bundle_rsync_local_releases_path | `"#{base_path}/releases"` | The releases base directory to checkout your repository
@@ -68,6 +68,15 @@ bundle_rsync_skip_bundle | false | (Secret option) Do not `bundle` and rsync bun
 bundle_rsync_bundle_install_jobs | `nil` | Configuration of bundle install with --jobs option.
 bundle_rsync_bundle_install_standalone | `nil` | bundle install with --standalone option. Set one of `true`, `false`, an `Array` of groups, or a white space separated `String`.
 bundle_rsync_bundle_without | `[:development, :test]` | Configuration of bundle install with --without option.
+
+### BundleRsync SCM Strategies
+
+* git
+  * Original Strategy Using Git
+* local_git
+  * Directly Rsync Local (Non-Bare) Git Directory at `repo_url` Path to Remote Release Path
+* git_turbo
+  * Super-Fast Deployment Utilizing Git Worktree, Hardlink, and Rsync
 
 ## Task Orders
 
