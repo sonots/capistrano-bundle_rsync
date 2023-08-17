@@ -15,10 +15,14 @@ namespace :bundle_rsync do
 
   def bundle_rsync_scm
     @bundle_rsync_scm ||=
-      if fetch(:bundle_rsync_scm).to_s == 'local_git'
+      case fetch(:bundle_rsync_scm).to_s
+      when 'local_git'
         require 'capistrano/bundle_rsync/local_git'
         set :bundle_rsync_local_release_path, repo_url
         Capistrano::BundleRsync::LocalGit.new(self)
+      when 'git_turbo'
+        require 'capistrano/bundle_rsync/git_turbo'
+        Capistrano::BundleRsync::GitTurbo.new(self)
       else
         require 'capistrano/bundle_rsync/git'
         Capistrano::BundleRsync::Git.new(self)
