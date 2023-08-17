@@ -6,6 +6,7 @@ class Capistrano::BundleRsync::GitTurbo < Capistrano::BundleRsync::SCM
   def check
     execute :git, 'ls-remote', repo_url, 'HEAD'
     execute :mkdir, '-p', config.local_base_path
+    execute :mkdir, '-p', config.local_releases_path
   end
 
   def clone
