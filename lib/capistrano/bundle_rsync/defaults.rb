@@ -30,6 +30,7 @@ module Capistrano
 
         set_if_empty :bundle_rsync_config_files, nil
         set_if_empty :bundle_rsync_shared_dirs, nil
+        set_if_empty :bundle_rsync_app_path, '.'
 
         set_if_empty :bundle_rsync_skip_bundle, false # NOTE: This is secret option
         set_if_empty :bundle_rsync_bundle_install_jobs, nil

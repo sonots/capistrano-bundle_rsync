@@ -16,8 +16,16 @@ module Capistrano::BundleRsync
       @local_release_path ||= fetch(:bundle_rsync_local_release_path)
     end
 
+    def self.local_release_app_path
+      @local_release_app_path ||= Pathname.new(local_release_path).join(fetch(:bundle_rsync_app_path))
+    end
+
     def self.local_bundle_path
       @local_bundle_path ||= fetch(:bundle_rsync_local_bundle_path)
+    end
+
+    def self.release_app_path
+      @release_app_path ||= release_path.join(fetch(:bundle_rsync_app_path))
     end
 
     def self.config_files

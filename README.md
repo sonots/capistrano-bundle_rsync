@@ -64,6 +64,7 @@ bundle_rsync_rsync_bwlimit | nil | Configuration of rsync --bwlimit (KBPS) optio
 bundle_rsync_rsync_options | `-az --delete` | Configuration of rsync options.
 bundle_rsync_config_files | `nil` | Additional files to rsync. Specified files are copied into `config` directory.
 bundle_rsync_shared_dirs | `nil` | Additional directories to rsync. Specified directories are copied into `shared` directory.
+bundle_rsync_app_path | `.` | A relative app path from local `bundle_rsync_local_release_path` and from remote `release_path`. `bundle` commands are executed here, and directories like `.bundle/config` and `config` will be located in this directory.
 bundle_rsync_skip_bundle | false | (Secret option) Do not `bundle` and rsync bundle.
 bundle_rsync_bundle_install_jobs | `nil` | Configuration of bundle install with --jobs option.
 bundle_rsync_bundle_install_standalone | `nil` | bundle install with --standalone option. Set one of `true`, `false`, an `Array` of groups, or a white space separated `String`.

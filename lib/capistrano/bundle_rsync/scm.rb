@@ -94,7 +94,7 @@ class Capistrano::BundleRsync::SCM < Capistrano::BundleRsync::Base
     if config_files = config.config_files
       Parallel.each(hosts, in_threads: config.max_parallels(hosts)) do |host|
         ssh = config.build_ssh_command(host)
-        execute :rsync, rsync_options, "--rsh='#{ssh}'", *config_files.map(&:to_s), "#{host}:#{release_path}/config/"
+        execute :rsync, rsync_options, "--rsh='#{ssh}'", *config_files.map(&:to_s), "#{host}:#{config.release_app_path}/config/"
       end
     end
 
