@@ -1,3 +1,21 @@
+# 0.6.0 (2025/03/14)
+
+New Features:
+
+* Introduce `set :bundle_rsync_scm, :git_turbo` strategy for super-fast deployment (@aeroastro)
+* Support `set :bundle_rsync_app_path, <path>` option to specify where to run `bundle` (@aeroastro)
+* Support `set :bundle_rsync_bundle_install_jobs, <N>` option to control `bundle install --jobs <N>` (thanks to @grezar)
+
+Enhancements:
+
+* Improve plugin support (`set_defaults`) for Capistrano 3.7+ (@aeroastro)
+* Accelerate deployment by syncing multiple configs with one `rsync` call (@aeroastro)
+
+Fixes:
+
+* Allow `capistrano-bundle_rsync` to deploy apps with different Ruby version from that of deploying environment (@aeroastro)
+* Fix bundler deprecation of `Bundler.with_clean_env` (@aeroastro)
+
 # 0.5.2 (2019/02/14)
 
 Fixes:
