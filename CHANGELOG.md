@@ -1,3 +1,9 @@
+# 0.7.0 (2026/07/03)
+
+Enhancements:
+
+* Support Bundler 4 (@yayamochi)
+
 # 0.6.0 (2025/03/14)
 
 New Features:
