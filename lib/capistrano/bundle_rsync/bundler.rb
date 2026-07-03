@@ -12,9 +12,9 @@ class Capistrano::BundleRsync::Bundler < Capistrano::BundleRsync::Base
             %w[bundle]
           end
 
-          execute *bundle_commands, 'config', '--local', 'deployment', 'true'
-          execute *bundle_commands, 'config', '--local', 'path', config.local_bundle_path
-          execute *bundle_commands, 'config', '--local', 'without', *config.bundle_without
+          execute *bundle_commands, 'config', 'set', '--local', 'deployment', 'true'
+          execute *bundle_commands, 'config', 'set', '--local', 'path', config.local_bundle_path
+          execute *bundle_commands, 'config', 'set', '--local', 'without', *config.bundle_without
 
           opts = ['--quiet']
           if jobs = config.bundle_install_jobs
@@ -25,7 +25,7 @@ class Capistrano::BundleRsync::Bundler < Capistrano::BundleRsync::Base
             opts.push(standalone)
           end
 
-          execute *bundle_commands, *opts
+          execute *bundle_commands, 'install', *opts
           execute :rm, "#{config.local_base_path}/config"
         end
       end
